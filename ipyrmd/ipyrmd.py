@@ -27,7 +27,7 @@ maybe_join = lambda x: x if isinstance(x, str) else "".join(x)
 # a leading or trailing one
 maybe_newline = lambda x, y: x + y if x.endswith("\n") or y.startswith("\n") else x + "\n" + y
 
-default_encoding = locale.getpreferredencoding()
+default_encoding = 'UTF8'
 
 def join_with_emptylines(text):
     """

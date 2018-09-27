@@ -7,7 +7,6 @@ import ipyrmd
 import locale
 
 NBFORMAT_VERSION = 4
-default_encoding = 'UTF8'
 # generic test classes which start from either an ipynb or rmd source
 # file, write it to a tempfile, then convert it back and forth, after
 # which the outputs can be compared
@@ -21,6 +20,7 @@ class IpynbTest(unittest.TestCase):
     cells = []
     metadata = None
     use_rmd = True
+    default_encoding = 'UTF8'
 
     def setUp(self):
         if self.metadata is None:
@@ -33,6 +33,8 @@ class IpynbTest(unittest.TestCase):
             "metadata": metadata,
             "cells": self.cells
         })
+
+        default_encoding = self.default_encoding
 
         with tempfile.TemporaryDirectory() as d:
             ipynb0_name = d + "/0"
@@ -56,9 +58,12 @@ class IpynbTest(unittest.TestCase):
                 self.roundtrip = nbformat.read(f, NBFORMAT_VERSION)
 
 class RmdTest(unittest.TestCase):
+    default_encoding = 'UTF8'
     source = ""
     use_rmd = True
     def setUp(self):
+        default_encoding = self.default_encoding
+
         with tempfile.TemporaryDirectory() as d:
             rmd0_name = d + "/0"
             ipynb_name = d + "/1"

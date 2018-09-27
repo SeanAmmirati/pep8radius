@@ -48,7 +48,8 @@ def prepend_lines(text, prefix):
     """
     Insert a prefix at the beginning of each line, eg #'
     """
-    return "\n".join([prefix + t for t in text.split("\n")])
+    join_list = [prefix + t if t != '' else t for t in text.split("\n")]
+    return "\n".join(join_list)
 
 unprepend_line = lambda x, p: x[len(p):] if x.startswith(p) else x
 
@@ -63,7 +64,6 @@ def NN_representer(dumper, data):
                                     flow_style=False)
 
 yaml.add_representer(nbformat.NotebookNode, NN_representer)
-
 
 def read_ipynb(infile, header=None, encoding=default_encoding):
     with open(infile, encoding=encoding) as f:
@@ -150,7 +150,7 @@ def ipynb_to_spin(infile, outfile, header=None, encoding=default_encoding):
             else:
                 text = maybe_join(cell.source)
             result.append(text)
-
+    
     with open(outfile, "w", encoding=encoding) as f:
         # separate blocks with blank lines to ensure that code blocks stand
         # alone as paragraphs

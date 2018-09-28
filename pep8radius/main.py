@@ -158,6 +158,8 @@ def create_parser():
                     type=int, metavar='n',
                     help='number of spaces per indent level '
                     '(default %(default)s)')
+    ap.add_argument('--hang-closing', default=0,
+                    help='use alternative bracket style for pycodestyle')
 
     df = parser.add_argument_group('docformatter',
                                    'Fix docstrings for PEP257.')
